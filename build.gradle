@@ -1,0 +1,40 @@
+apply plugin: 'java'
+
+sourceSets {
+    main.java {
+        srcDirs 'src'
+    }
+    main.resources {
+        srcDirs 'conf'
+    }
+    web.resources {
+        srcDirs 'webapp'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'javax', name: 'javaee-api', version: '7.0'
+}
+
+jar {
+    archiveName = "greetings.jar"
+}
+
+task war(type: War) {
+    dependsOn jar
+    includeEmptyDirs = false
+
+    webInf {
+        from sourceSets.main.resources
+        from sourceSets.web.resources
+    }
+
+    classpath sourceSets.main.output.classesDir
+    archiveName = "greetings.war"
+}
+
+assemble.dependsOn war
