@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 @Path("greet")
 public class GreetingService {
 
-    @Inject @Default
+    @Inject @Fancy
     Greeting greeting;
 
     @GET

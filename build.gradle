@@ -16,8 +16,13 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    warLib
+}
+
 dependencies {
     compile group: 'javax', name: 'javaee-api', version: '7.0'
+    warLib group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
 }
 
 jar {
@@ -29,11 +34,11 @@ task war(type: War) {
     includeEmptyDirs = false
 
     webInf {
-        from sourceSets.main.resources
         from sourceSets.web.resources
     }
 
-    classpath sourceSets.main.output.classesDir
+    classpath sourceSets.main.output
+    classpath configurations.warLib
     archiveName = "greetings.war"
 }
 

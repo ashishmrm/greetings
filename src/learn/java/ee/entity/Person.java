@@ -1,4 +1,4 @@
-package learn.java.ee.bean;
+package learn.java.ee.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
