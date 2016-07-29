@@ -81,4 +81,32 @@ task buildImage(type: DockerBuildImage) {
     tag = "ashishmrm/mypmc"
 }
 
+task removeMysqlContainer(type: DockerRemoveContainer) {
+    containerId = "MySql"
+    force = true
+}
+
+task removeMysqlImage(type: DockerRemoveImage) {
+    imageId = "mysql"
+}
+
+task pullMysql(type: DockerPullImage) {
+    repository "mysql"
+    tag "latest"
+}
+
+task createMysql(type: DockerCreateContainer){
+    targetImageId {
+        "mysql"
+    }
+    env = ["MYSQL_ROOT_PASSWORD=abc"]
+    containerName = "MySql"
+}
+
+task startMysql(type: DockerStartContainer) {
+    targetContainerId {
+        createMysql.getContainerId()
+    }
+}
+
 assemble.dependsOn war
