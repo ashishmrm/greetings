@@ -42,4 +42,43 @@ task war(type: War) {
     archiveName = "greetings.war"
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.1'
+    }
+}
+
+import com.bmuschko.gradle.docker.tasks.container.*
+import com.bmuschko.gradle.docker.tasks.image.*
+
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+docker {
+    url = 'http://192.168.99.100:2376'
+    certPath = file("$projectDir/cert")
+}
+
+task copyFiles(type: Copy) {
+    from libsDir
+    into "build/docker"
+    include "*.war"
+    from projectDir
+    into "build/docker"
+    include "Dockerfile"
+}
+
+task removeImage(type: DockerRemoveImage) {
+    imageId = "ashishmrm/mypmc"
+}
+
+task buildImage(type: DockerBuildImage) {
+    dependsOn copyFiles
+    inputDir = file("$buildDir/docker")
+    tag = "ashishmrm/mypmc"
+}
+
 assemble.dependsOn war
