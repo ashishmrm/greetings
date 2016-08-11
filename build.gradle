@@ -71,14 +71,35 @@ task copyFiles(type: Copy) {
     include "Dockerfile"
 }
 
+task removeContainer(type: DockerRemoveContainer) {
+    containerId = "mypmc"
+    force = true
+}
+
 task removeImage(type: DockerRemoveImage) {
-    imageId = "ashishmrm/mypmc"
+    imageId = "mypmc"
 }
 
 task buildImage(type: DockerBuildImage) {
     dependsOn copyFiles
     inputDir = file("$buildDir/docker")
-    tag = "ashishmrm/mypmc"
+    tag = "mypmc"
+}
+
+task createContainer(type: DockerCreateContainer){
+    targetImageId {
+        "mypmc"
+    }
+    links = ["MySql:mysql"]
+    portBindings = ["8085:8085"]
+    containerName = "mypmc"
+}
+
+
+task startContainer(type: DockerStartContainer) {
+    targetContainerId {
+        createContainer.getContainerId()
+    }
 }
 
 task removeMysqlContainer(type: DockerRemoveContainer) {
@@ -99,7 +120,8 @@ task createMysql(type: DockerCreateContainer){
     targetImageId {
         "mysql"
     }
-    env = ["MYSQL_ROOT_PASSWORD=abc"]
+    env = ["MYSQL_ROOT_PASSWORD=root", "MYSQL_DATABASE=test", "MYSQL_USER=mysql", "MYSQL_PASSWORD=mysql"]
+    portBindings = ["3306:3306"]
     containerName = "MySql"
 }
 
