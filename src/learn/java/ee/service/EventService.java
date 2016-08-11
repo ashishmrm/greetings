@@ -18,7 +18,7 @@ public class EventService {
     public void handleGreeting(@Observes @GreetingReceived String name) throws DeploymentException, IOException, URISyntaxException {
         System.out.println("Greeting received for : " + name);
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-        String uri = "ws://127.0.0.1:8085/greetings/greeting";
+        String uri = "ws://192.168.99.100:8085/greetings/greeting";
         container.connectToServer(GreetingClient.class, URI.create(uri));
     }
 }
