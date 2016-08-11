@@ -92,7 +92,7 @@ task createContainer(type: DockerCreateContainer){
         "mypmc"
     }
     links = ["MySql:mysql"]
-    portBindings = ["8085:8085"]
+    portBindings = ["8085:8080"]
     containerName = "mypmc"
 }
 
