@@ -60,6 +60,7 @@ apply plugin: 'com.bmuschko.docker-remote-api'
 docker {
     url = 'http://192.168.99.100:2376'
     certPath = file("$projectDir/cert")
+    apiVersion = "1.23"
 }
 
 task copyFiles(type: Copy) {
