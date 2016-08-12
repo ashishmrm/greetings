@@ -29,7 +29,7 @@ public class GreetingService {
     @Produces(MediaType.TEXT_PLAIN)
     public String greet(@PathParam("name") String name) {
         if(name.length() < 5) {
-            throw new GreetingException("Name must be atleast 6 digit long!!");
+            throw new GreetingException("Name must be atleast 6 digit long!!!");
         }
         return greeting.greet(name);
     }
