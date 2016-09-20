@@ -28,6 +28,6 @@ public abstract class GreetingDecorator implements Greeting {
     @Override
     public String greet(String name) {
         greetingReceivedEvent.fire(name);
-        return "@@@" + greeting.greet(name) + "@@@";
+        return "@@" + greeting.greet(name) + "@@";
     }
 }
