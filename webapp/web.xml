@@ -11,7 +11,7 @@
     <data-source>
         <name>java:global/jdbc/MyDataSource</name>
         <class-name>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</class-name>
-        <server-name>192.168.99.100</server-name>
+        <server-name>127.0.0.1</server-name>
         <port-number>3306</port-number>
         <database-name>test</database-name>
         <user>mysql</user>

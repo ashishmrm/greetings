@@ -63,7 +63,7 @@ apply plugin: 'com.bmuschko.docker-remote-api'
 apply plugin: 'org.sonarqube'
 
 docker {
-    url = 'http://192.168.99.100:2376'
+    url = 'http://192.168.99.101:2376'
     certPath = file("$projectDir/cert")
     apiVersion = "1.23"
 }
